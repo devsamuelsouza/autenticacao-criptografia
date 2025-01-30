@@ -9,4 +9,4 @@ main.secret_key = config_dotenv.get("SECRET_KEY")
 from rotas import *
 
 if __name__ == '__main__':
-    main.run(debug=True, host="localhost", port=80)
+    main.run(debug=False, host='0.0.0.0', port=80)
