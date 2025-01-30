@@ -8,7 +8,7 @@ def Conexao():
             user=config.get("DATABASE_USER"),
             password=config.get("DATABASE_PASSWORD"),
             database=config.get("DATABASE_NAME"),
-            port=config.get("DATABASE_PORT", 3306)
+            port= int(config.get("DATABASE_PORT", 3306))
         ) 
         if conexao.is_connected():
             return conexao
