@@ -1,10 +1,12 @@
 from flask import Flask
-from dotenv import dotenv_values
+from dotenv import load_dotenv
+import os
 
-config_dotenv = dotenv_values(".env")
+load_dotenv()
+
 
 main = Flask(__name__)
-main.secret_key = config_dotenv.get("SECRET_KEY")
+main.secret_key = os.getenv("SECRET_KEY")
 
 from rotas import *
 
