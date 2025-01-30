@@ -8,7 +8,7 @@ from conexao import Conexao
 def index():
     return render_template("index.html")
     
-@main.route("/logado", methods=['POST'])
+@main.route("/logado", methods=['GET', 'POST'])
 def logado():
     cnx = Conexao()
     cursor = cnx.cursor()
