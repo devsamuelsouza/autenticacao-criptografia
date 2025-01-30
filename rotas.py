@@ -6,39 +6,38 @@ from conexao import Conexao
 
 @main.route("/", methods = ['POST', 'GET'])
 def index():
-    if request.method == 'POST':
-        
-        cnx = Conexao()
-        cursor = cnx.cursor()
-        
-        usuario = request.form.get('usuario')
-        senha = request.form.get('senha')
-        hash_senha = hashlib.sha256(senha.encode()).hexdigest()
+    return render_template("index.html")
     
-        sql_consulta = "SELECT NOME, USUARIO, SENHA FROM usuarios WHERE USUARIO = %s"
+@main.route("/logado", methods=['POST'])
+def logado():
+    cnx = Conexao()
+    cursor = cnx.cursor()
         
-        cursor.execute(sql_consulta, (usuario,))
-        consulta = cursor.fetchall()
+    usuario = request.form.get('usuario')
+    senha = request.form.get('senha')
+    hash_senha = hashlib.sha256(senha.encode()).hexdigest()
+    
+    sql_consulta = "SELECT NOME, USUARIO, SENHA FROM usuarios WHERE USUARIO = %s"
         
-        if consulta == []:
-            flash("Esse usuario não existe!")
-            return redirect("/")
+    cursor.execute(sql_consulta, (usuario,))
+    consulta = cursor.fetchall()
         
-        linha = consulta[0]
+    if consulta == []:
+        flash("Esse usuario não existe!")
+        return redirect("/")
         
-        v_nome = linha[0]
-        v_usuario = linha[1]
-        v_senha = linha[2]
+    linha = consulta[0]
         
-        if v_usuario == usuario and v_senha == hash_senha:
-            return render_template("welcome.html", nome = v_nome, usuario = v_usuario, senha = v_senha) 
-        else:
-            flash("Senha invalida!")
-            return redirect("/")
-            
+    v_nome = linha[0]
+    v_usuario = linha[1]
+    v_senha = linha[2]
+        
+    if v_usuario == usuario and v_senha == hash_senha:
+        return render_template("welcome.html", nome = v_nome, usuario = v_usuario, senha = v_senha) 
     else:
-        return render_template("index.html")
-    
+        flash("Senha invalida!")
+        return redirect("/")
+            
 @main.route("/register", methods=['POST', 'GET'])
 def cadastrar():
     
