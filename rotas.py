@@ -15,7 +15,7 @@ def index():
         senha = request.form.get('senha')
         hash_senha = hashlib.sha256(senha.encode()).hexdigest()
     
-        sql_consulta = "SELECT NOME,USUARIO, SENHA FROM usuarios WHERE USUARIO = %s"
+        sql_consulta = "SELECT NOME, USUARIO, SENHA FROM usuarios WHERE USUARIO = %s"
         
         cursor.execute(sql_consulta, (usuario,))
         consulta = cursor.fetchall()
