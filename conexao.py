@@ -1,17 +1,19 @@
 import mysql.connector
-from dotenv import dotenv_values
-config = dotenv_values(".env")
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def Conexao():
         conexao = mysql.connector.connect(
-            host=config.get("DATABASE_URL"),
-            user=config.get("DATABASE_USER"),
-            password=config.get("DATABASE_PASSWORD"),
-            database=config.get("DATABASE_NAME"),
-            port= '30152'
+            host=os.getenv("DATABASE_URL"),
+            user=os.getenv("DATABASE_USER"),
+            password=os.getenv("DATABASE_PASSWORD"),
+            database=os.getenv("DATABASE_NAME"),
+            port=int(os.getenv("DATABASE_PORT",30152))
         ) 
-        print(config.get("DATABASE_PORT"))
         if conexao.is_connected():
             return conexao
         else:
             return None
+print(Conexao())
