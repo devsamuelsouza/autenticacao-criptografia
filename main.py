@@ -4,7 +4,6 @@ import os
 
 load_dotenv()
 
-
 main = Flask(__name__)
 main.secret_key = os.getenv("SECRET_KEY")
 
